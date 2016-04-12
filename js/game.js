@@ -2477,4 +2477,4 @@ Horizon.prototype = {
 };
 })();
 
-new Runner('.interstitial-wrapper');
+startGame(new Runner('.interstitial-wrapper'));
