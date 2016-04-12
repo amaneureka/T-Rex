@@ -646,7 +646,7 @@ Runner.prototype = {
     // }
 
     if (this.activated && !this.crashed && Runner.keycodes.DUCK[e.keyCode]) {
-      e.preventDefault();
+      //e.preventDefault();
       if (this.tRex.jumping) {
         // Speed drop, activated only when jump key is not pressed.
         this.tRex.setSpeedDrop();
