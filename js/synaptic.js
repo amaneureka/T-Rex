@@ -1162,7 +1162,7 @@ function Neuron() {
   this.old = 0;
   this.activation = 0;
   this.selfconnection = new Neuron.connection(this, this, 0); // weight = 0 -> not connected
-  this.squash = Neuron.squash.LOGISTIC;
+  this.squash = Neuron.squash.TANH;
   this.neighboors = {};
   this.bias = Math.random() * .2 - .1;
 }
