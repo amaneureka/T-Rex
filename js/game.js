@@ -424,7 +424,7 @@ Runner.prototype = {
         this.containerEl.style.width = this.dimensions.WIDTH + 'px';
         this.containerEl.style.height = this.dimensions.HEIGHT + 'px';
         this.distanceMeter.update(0, Math.ceil(this.distanceRan));
-        this.stop();
+        //this.stop();
       } else {
         this.tRex.draw(0, 0);
       }
@@ -793,7 +793,7 @@ Runner.prototype = {
    */
   onVisibilityChange: function(e) {
     if (document.hidden || document.webkitHidden || e.type == 'blur') {
-      this.stop();
+      //this.stop(); <-- don't pause the game
     } else if (!this.crashed) {
       this.tRex.reset();
       this.play();
@@ -1755,13 +1755,13 @@ Trex.prototype = {
    * @param {boolean} isDucking.
    */
   setDuck: function(isDucking) {
-    if (isDucking && this.status != Trex.status.DUCKING) {
+    /*if (isDucking && this.status != Trex.status.DUCKING) {
       this.update(0, Trex.status.DUCKING);
       this.ducking = true;
     } else if (this.status == Trex.status.DUCKING) {
       this.update(0, Trex.status.RUNNING);
       this.ducking = false;
-    }
+    }*/
   },
 
   /**
