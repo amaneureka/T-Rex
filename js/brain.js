@@ -9,12 +9,12 @@
 function startGame(tRexGameRunner)
 {
     //
-    //      DISTANCE    - xPOS
+    //      DISTANCE
     //      WIDTH
     //      VELOCITY
     //
     //      UP
-    //      NOTHING
+    //      Down
     //
     var perceptron = new Architect.Perceptron(3,20,20,2);
     var learningRate = 0.03;
@@ -56,37 +56,21 @@ function startGame(tRexGameRunner)
     {
         if (tRexGameRunner.crashed)
         {
-            //if (LastParams != null)
             {
                 var deltaFactor = ((LastParams[1]/LastParams[2]) * 10);
-                var deltaFactor2 = ((LastRealParams[1]/LastRealParams[2]) * 10);
-
-                //if (tRexGameRunner.tRex.xPos < LastParams[0])
-                //    deltaFactor *= -1;
-
-                //if (tRexGameRunner.tRex.xPos >= LastRealParams[0])
-                //    deltaFactor2 *= -1;
 
                 if (tRexGameRunner.tRex.jumpVelocity > 0 || tRexGameRunner.tRex.jumping)
                 {
                     //we hit it on foot :ouch:
-                    //if (LastRealParams != null)
-                    /*{
-                        //try to jump from a little farther
-                        LastRealParams[0] = LastRealParams[0] + deltaFactor2;
-                        perceptron.activate(LastRealParams);
-                        perceptron.propagate(learningRate*2, [0, 1]);
-                    }*/
-
                     perceptron.activate(LastParams);
-                    perceptron.propagate(learningRate, [0, 1]);
+                    perceptron.propagate(learningRate, [0, 1]);//you should remain on ground
 
                     //try to jump from a little nearer
                     LastRealParams[0] = LastRealParams[0] + deltaFactor;
                     perceptron.activate(LastRealParams);
-                    perceptron.propagate(learningRate, [1, 0]);
+                    perceptron.propagate(learningRate, [1, 0]);//you should have jumped
 
-                    console.log(":foot: " + deltaFactor + " " + deltaFactor2);
+                    console.log(":foot: " + deltaFactor);
                 }
                 else
                 {
@@ -102,7 +86,7 @@ function startGame(tRexGameRunner)
                 }
             }
             
-            // Analytics
+            //log up things
             var distance = tRexGameRunner.distanceRan;
             console.log("[GAME]:\tSCORE: " + distance)
 
@@ -116,14 +100,14 @@ function startGame(tRexGameRunner)
             var obstacle = tRexGameRunner.horizon.obstacles[0];
 
             var params = [];
-            params.push(obstacle.xPos);
-            params.push(obstacle.size);
-            params.push(Math.round(tRexGameRunner.currentSpeed * 10));
+            params.push(obstacle.xPos);//position
+            params.push(obstacle.size);//size
+            params.push(Math.round(tRexGameRunner.currentSpeed * 10));//speed with multiply bias
             
             var output = perceptron.activate(params);
-            var confidence = output[0] - output[1] - 0.01;
+            var confidence = output[0] - output[1] - 0.01;//weight bias
 
-            if (confidence > 0)
+            if (confidence > 0)//jump if network is really confident
             {
                 //Jump jump jump :D !
                 if (!tRexGameRunner.tRex.jumping)
@@ -137,10 +121,10 @@ function startGame(tRexGameRunner)
                 if (tRexGameRunner.tRex.jumping)
                 {
                     duckDragon();
-                    LastParams = params;
+                    LastParams = params;//last move activation
                 }
             }
-            LastRealParams = params;
+            LastRealParams = params;//last frame activation
         }
         //well well, our human mind can retain image upto 25ms i.e. 40fps
         //obviously no brain is ideal so :p 20ms :D !
