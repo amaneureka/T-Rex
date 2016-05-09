@@ -293,6 +293,8 @@ Runner.prototype = {
    */
   loadSounds: function() {
     if (!IS_IOS) {
+      var AudioContext = window.AudioContext          // Default
+                        || window.webkitAudioContext;  // Safari and old versions of Chrome
       this.audioContext = new AudioContext();
 
       var resourceTemplate =
