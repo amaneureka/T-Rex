@@ -107,6 +107,11 @@ function startGame(tRexGameRunner)
             var output = perceptron.activate(params);
             var confidence = output[0] - output[1] - 0.01;//weight bias
 
+            //Java-Console
+            console.log("[lbl_confidence_up] " + Math.round(output[0] * 1e4) / 1e4);
+            console.log("[lbl_confidence_down] " + Math.round(output[1] * 1e4) / 1e4);
+
+            var decision = 0;
             if (confidence > 0)//jump if network is really confident
             {
                 //Jump jump jump :D !
@@ -114,6 +119,9 @@ function startGame(tRexGameRunner)
                 {
                     jumpDragon();
                     LastParams = params;
+
+                    decision = 1;
+                    console.log("[lbl_decision] UP");
                 }
             }
             else
@@ -122,9 +130,15 @@ function startGame(tRexGameRunner)
                 {
                     duckDragon();
                     LastParams = params;//last move activation
+
+                    decision = 1;
+                    console.log("[lbl_decision] DOWN");
                 }
             }
             LastRealParams = params;//last frame activation
+
+            if (decision == 0)
+                console.log("[lbl_decision] NONE");
         }
         //well well, our human mind can retain image upto 25ms i.e. 40fps
         //obviously no brain is ideal so :p 20ms :D !
