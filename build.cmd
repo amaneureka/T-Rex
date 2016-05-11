@@ -8,6 +8,7 @@ REM         \/
 
 REM LICENSE: MIT https://opensource.org/licenses/MIT
 REM Copyright Aman Priyadarshi<aman.eureka@gmail.com>, 2016
+REM Please find the copy of license under the file 'License.md'
 REM Published: https://github.com/amaneureka/T-Rex
 
 rm -f *.class
