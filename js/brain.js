@@ -105,7 +105,7 @@ function startGame(tRexGameRunner)
             params.push(Math.round(tRexGameRunner.currentSpeed * 10));//speed with multiply bias
             
             var output = perceptron.activate(params);
-            var confidence = output[0] - output[1] - 0.01;//weight bias
+            var confidence = output[0] - output[1] - 0.1;//weight bias
 
             //Java-Console
             console.log("[lbl_confidence_up] " + Math.round(output[0] * 1e4) / 1e4);
